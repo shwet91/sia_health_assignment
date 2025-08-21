@@ -3,7 +3,6 @@ const questions = {
   q1: {
     question: "What brings you here today?",
     type: "multiSelection",
-    doHaveSubQuestions: false,
     answer: {
       "I want to check if I have a hormonal imbalance": "q3",
       "I am struggling with weight gain": "q3",
@@ -19,7 +18,6 @@ const questions = {
   q2: {
     question: "What have you been diagnosed with?",
     type: "singleSelection",
-    doHaveSubQuestions: false,
     answer: {
       PCOS: "q5",
       Hypothyroidism: "q5",
@@ -33,7 +31,6 @@ const questions = {
   q3: {
     question: "Do you experience any of the following hormonal health issues?",
     type: "multiSelection",
-    doHaveSubQuestions: false,
     answer: {
       "PCOS / PCOD": "q4",
       "Thyroid disorders (Hypothyroid, Hashimoto’s)": "q4",
@@ -49,7 +46,6 @@ const questions = {
     question:
       "Have you ever been recommended a hormone test, thyroid test, or ultrasound?",
     type: "singleSelection",
-    doHaveSubQuestions: false,
     answer: {
       "Yes, and did the tests": "q5",
       "Yes, but didn't do it": "q5",
@@ -61,7 +57,6 @@ const questions = {
 
   q5: {
     type: "GroupSelection",
-    doHaveSubQuestions: true,
     next: "q6",
     catogories: {
       cat1: {
@@ -118,7 +113,6 @@ const questions = {
   q6: {
     question: "Symptom Duration",
     type: "singleSelection",
-    doHaveSubQuestions: false,
     answer: {
       "Less than 3 months": null,
       "3 - 12 months": null,

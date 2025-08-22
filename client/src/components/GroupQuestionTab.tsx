@@ -70,27 +70,33 @@ function GroupQuestionTab({
   return (
     <div
       className={`${
-        index === 4 ? "" : "border-b-2"
-      } w-1/2 mt-5 mr border-gray-400 pb-3`}
+        index === 4
+          ? ""
+          : "border-b border-gray-300 sm:border-b-2 sm:border-gray-400"
+      } w-full sm:w-1/2 mt-3 sm:mt-5 pr-2 sm:mr-0 pb-2 sm:pb-3`}
     >
-      <h1 className="dark-blue-color text-xl">{question}</h1>
-      <button onClick={func} className="text-black">
+      <h1 className="dark-blue-color text-lg sm:text-xl leading-tight mb-2">
+        {question}
+      </h1>
+      <button onClick={func} className="text-black text-sm sm:text-base">
         Click me
       </button>
-      <div className="  h-[90%] ">
+      <div className="h-auto min-h-[120px] mt-2">
         {options.length > 0
           ? options.map((e, i) => (
               <div
                 onClick={() => btnHandler(i, e)}
                 key={i}
-                className=" mt-2 items-center flex  "
+                className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 hover:bg-gray-50 rounded-lg sm:rounded-none transition-colors duration-200"
               >
                 <div
-                  className={`w-6 mr-3 h-6 border-2 rounded-full ${
+                  className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 ${
                     selectedOptions.includes(i) ? "selected" : "teal-color"
                   }`}
                 ></div>
-                <h1 className="dark-blue-color text-sm select-none">{e}</h1>
+                <h1 className="dark-blue-color text-xs sm:text-sm select-none leading-relaxed break-words">
+                  {e}
+                </h1>
               </div>
             ))
           : null}

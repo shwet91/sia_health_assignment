@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Circle, CircleDot, CheckCircle } from "lucide-react";
 import "../styles/design.css";
 
 function QuestionTab({
@@ -103,26 +102,32 @@ function QuestionTab({
   useEffect(() => {
     if (selectedOptions.length === 0) setNextQuestion(null);
   }, [selectedOptions]);
+
   return (
-    <div className=" w-[50%] 1h-[300px] ml-8 mt-5">
-      <h1 className="dark-blue-color text-2xl">{question}</h1>
-      <button onClick={func} className="text-black">
+    <div className="w-full sm:w-[80%] lg:w-[50%] h-auto min-h-[200px] ml-4 sm:ml-6 lg:ml-8 mt-3 sm:mt-5 px-2 sm:px-0">
+      <h1 className="dark-blue-color text-lg sm:text-xl lg:text-2xl leading-tight">
+        {question}
+      </h1>
+      <button onClick={func} className="text-black text-sm sm:text-base">
         Click me
       </button>
-      <div className="  h-[90%] ">
+      <div className="h-auto min-h-[150px] mt-2 sm:mt-4">
         {answerArray.length > 0
           ? answerArray.map((e, i) => (
               <div
                 onClick={() => btnHandler(i, e)}
                 key={i}
-                className=" mt-2 items-center flex  "
+                className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 hover:bg-gray-50 rounded-lg sm:rounded-none transition-colors duration-200"
               >
+
                 <div
-                  className={`w-6 mr-3 h-6 border-2 rounded-full ${
+                  className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 ${
                     selectedOptions.includes(i) ? "selected" : "teal-color"
                   }`}
                 ></div>
-                <h1 className="dark-blue-color text-lg select-none">{e}</h1>
+                <h1 className="dark-blue-color text-sm sm:text-base lg:text-lg select-none leading-relaxed break-words">
+                  {e}
+                </h1>
               </div>
             ))
           : null}

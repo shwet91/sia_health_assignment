@@ -102,30 +102,43 @@ function MainPannel() {
   }, [finalAnswer]);
 
   return (
-    <div className=" w-full m-4 rounded-4xl p-4 bg-white relative flex flex-col">
-      <div className="flex justify-between p-8 ">
-        <div className="dark-blue-color">HealthCare</div>
+    <div className="w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col">
+      <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start p-4 sm:p-6 lg:p-8">
+        <div className="dark-blue-color text-lg sm:text-xl mb-4 sm:mb-0">
+          HealthCare
+        </div>
         <div>
-          <ul className="flex">
-            <li className="dark-blue-color ml-5 ">Home</li>
-            <li className="dark-blue-color ml-5">About</li>
-            <li className="dark-blue-color ml-5">Contact</li>
+          <ul className="flex flex-wrap justify-center sm:justify-end">
+            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base">
+              Home
+            </li>
+            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base">
+              About
+            </li>
+            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base">
+              Contact
+            </li>
           </ul>
         </div>
       </div>
 
-      <div className=" w-[50%] ml-8">
-        <h1 className="dark-blue-color text-6xl">Take a Health Quiz</h1>
-        <p className="dark-blue-color text-sm ml-3 mt-5">
-          Amswer a few questions to check your mental health status
+      <div className="w-full sm:w-[80%] lg:w-[50%] ml-4 sm:ml-6 lg:ml-8 px-2 sm:px-0">
+        <h1 className="dark-blue-color text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
+          Take a Health Quiz
+        </h1>
+        <p className="dark-blue-color text-xs sm:text-sm ml-1 sm:ml-3 mt-3 sm:mt-5">
+          Answer a few questions to check your mental health status
         </p>
-        <button onClick={btnHandler} className="text-black text-2xl">
-          Ckick me
+        <button
+          onClick={btnHandler}
+          className="text-black text-lg sm:text-xl lg:text-2xl mt-2"
+        >
+          Click me
         </button>
       </div>
 
       {questions[currentQuestion]?.type === "GroupSelection" && (
-        <div className="flex w-[50%] flex-wrap">
+        <div className="flex w-full lg:w-[80%] xl:w-[50%] flex-wrap px-4 sm:px-0">
           {Object.keys(questions.q5.catogories).map((e, i) => {
             const currentData = questions.q5.catogories[e];
             return (
@@ -164,7 +177,7 @@ function MainPannel() {
 
       <button
         onClick={nextHandler}
-        className="teal-color absolute bottom-3.5 right-[300px] w-[200px] h-[50px] rounded-2xl teal-background text-2xl"
+        className="teal-color absolute bottom-3 sm:bottom-3.5 right-4 sm:right-8 lg:right-[300px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl"
       >
         Next
       </button>

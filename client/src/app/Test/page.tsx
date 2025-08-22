@@ -9,16 +9,17 @@ function Page() {
   // Take the basic details
   // Ask the question
   // Display the result
-  // simulate sending summary on watsapp
+  // simulate sending summary on WhatsApp
 
   return (
-    <div className="w-full h-screen blue-color flex justify-center items-center">
+    <div className="w-full min-h-screen px-2 sm:px-4 lg:px-0 blue-color flex justify-center items-center">
       {/* <Navbar></Navbar> */}
-      <div className="w-[75%] h-full flex-col p-5 flex justify-center items-center">
-        <MainPannel></MainPannel>
+      <div className="w-full sm:w-[90%] lg:w-[75%] h-full flex-col p-2 sm:p-5 flex justify-center items-center">
+        <MainPannel />
       </div>
     </div>
   );
 }
 
 export default Page;
+

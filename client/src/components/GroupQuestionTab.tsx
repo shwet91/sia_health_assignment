@@ -83,7 +83,7 @@ function GroupQuestionTab({
       </button>
       <div className="h-auto min-h-[120px] mt-2">
         {options.length > 0
-          ? options.map((e, i) => (
+          ? options.map((e: any, i: any) => (
               <div
                 onClick={() => btnHandler(i, e)}
                 key={i}

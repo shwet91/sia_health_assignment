@@ -25,7 +25,8 @@ function QuestionTab({
 }) {
   const [input, setInput] = useState();
   const [selectedOptions, setSelectedOptins] = useState<number[]>([]);
-  const [answer, setAnswer] = useState({});
+  const [answer, setAnswer] = useState<AnswerType | null>(null);
+
   const [nextQuestion, setNextQuestion] = useState<string | null>(null);
   const answerArray = Object.keys(options);
 
@@ -41,7 +42,7 @@ function QuestionTab({
     if (type === "singleSelection") {
       if (selectedOptions.includes(index)) {
         setSelectedOptins([]);
-        setAnswer({});
+        setAnswer(null);
       } else {
         setSelectedOptins([index]);
         setAnswer({
@@ -67,7 +68,7 @@ function QuestionTab({
           ...prev,
           question,
           type: "multiSelection",
-          answer: [...(prev.answer || []), value],
+          answer: [...(prev?.answer || []), value],
         }));
       }
     }
@@ -76,6 +77,8 @@ function QuestionTab({
   // logic to set next question
 
   useEffect(() => {
+    if(!answer) return;
+
     if (answer.answer?.length === 0) return;
 
     let curentNextValue: string[] = [];
@@ -92,11 +95,11 @@ function QuestionTab({
     } else {
       setNextQuestion(next);
     }
-  }, [answer.answer?.join(","), next, options]);
+  }, [answer?.answer?.join(","), next, options]);
 
   useEffect(() => {
     setSelectedOptins([]);
-    setAnswer({});
+    setAnswer(null);
   }, [question]);
 
   useEffect(() => {
@@ -119,7 +122,6 @@ function QuestionTab({
                 key={i}
                 className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 hover:bg-gray-50 rounded-lg sm:rounded-none transition-colors duration-200"
               >
-
                 <div
                   className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 ${
                     selectedOptions.includes(i) ? "selected" : "teal-color"

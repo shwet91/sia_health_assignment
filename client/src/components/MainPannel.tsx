@@ -12,7 +12,7 @@ type QuestionKey = any;
 
 function ImageBox() {
   return (
-    <div className="w-64 h-64 md:h-[500px] md:w-[500px] overflow-hidden rounded-2xl relative">
+    <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 overflow-hidden rounded-xl sm:rounded-2xl relative shadow-lg">
       <Image
         src="/girl.jpg" // put your image inside /public
         alt="sample"
@@ -25,7 +25,7 @@ function ImageBox() {
 
 function Logo() {
   return (
-    <div className="w-16 h-16 overflow-hidden rounded-2xl relative">
+    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 overflow-hidden rounded-lg sm:rounded-xl relative mr-2 sm:mr-3">
       <Image
         src="/logo.jpg" // put your image inside /public
         alt="sample"
@@ -133,32 +133,37 @@ function MainPannel() {
   }, [finalAnswer]);
 
   return (
-    <div className="w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col">
-      <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start p-4 sm:p-6 lg:p-8">
+    <div className="w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col min-h-[600px] sm:min-h-[700px] lg:min-h-[800px]">
+      {/* CHANGED: Improved header layout for logo and navigation */}
+      <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start p-4 sm:p-6 lg:p-8 relative z-10">
+        {/* CHANGED: Enhanced logo section with better alignment and responsive text */}
         <div className="dark-blue-color text-lg sm:text-xl mb-4 sm:mb-0 flex items-center">
-          <Logo></Logo>
-          <h1 className="text-3xl">HealthCare</h1>
+          <Logo />
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
+            HealthCare
+          </h1>
         </div>
         <div>
           <ul className="flex flex-wrap justify-center sm:justify-end">
-            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base">
+            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base hover:opacity-75 cursor-pointer transition-opacity">
               Home
             </li>
-            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base">
+            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base hover:opacity-75 cursor-pointer transition-opacity">
               About
             </li>
-            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base">
+            <li className="dark-blue-color ml-2 sm:ml-3 lg:ml-5 text-sm sm:text-base hover:opacity-75 cursor-pointer transition-opacity">
               Contact
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="w-full sm:w-[80%] lg:w-[50%] ml-4 sm:ml-6 lg:ml-8 px-2 sm:px-0">
-        <h1 className="dark-blue-color text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">
+      {/* CHANGED: Adjusted content layout to work with positioned image */}
+      <div className="w-full sm:w-[90%] lg:w-[60%] xl:w-[50%] ml-4 sm:ml-6 lg:ml-8 px-2 sm:px-0 relative z-10">
+        <h1 className="dark-blue-color text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight">
           Take a Health Quiz
         </h1>
-        <p className="dark-blue-color text-xs sm:text-sm ml-1 sm:ml-3 mt-3 sm:mt-5">
+        <p className="dark-blue-color text-xs sm:text-sm ml-1 sm:ml-3 mt-3 sm:mt-5 max-w-md">
           Answer a few questions to check your mental health status
         </p>
         <button
@@ -169,9 +174,9 @@ function MainPannel() {
         </button>
       </div>
 
- 
+      {/* CHANGED: Adjusted questions layout to work with image positioning */}
       {(questions as any)[currentQuestion]?.type === "GroupSelection" && (
-        <div className="flex w-full lg:w-[80%] xl:w-[50%] flex-wrap px-4 sm:px-0">
+        <div className="flex w-full lg:w-[90%] xl:w-[60%] flex-wrap px-4 sm:px-0 relative z-10">
           {Object.keys((questions as any).q5.catogories).map(
             (e: any, i: any) => {
               const currentData = (questions as any).q5.catogories[e];
@@ -182,43 +187,47 @@ function MainPannel() {
                   options={currentData.answer}
                   index={i}
                   dataTransfer={handleDataFromChild}
-                ></GroupQuestionTab>
+                />
               );
             }
           )}
         </div>
       )}
 
- 
       {((questions as any)[currentQuestion]?.type === "singleSelection" ||
         (questions as any)[currentQuestion]?.type === "multiSelection") && (
-        <QuestionTab
-          question={(questions as any)[currentQuestion]?.question}
-          options={(questions as any)[currentQuestion]?.answer}
-          type={(questions as any)[currentQuestion]?.type}
-          dataTransfer={handleDataFromChild}
-          next={(questions as any)[currentQuestion]?.next}
-        ></QuestionTab>
+        <div className="relative z-10">
+          <QuestionTab
+            question={(questions as any)[currentQuestion]?.question}
+            options={(questions as any)[currentQuestion]?.answer}
+            type={(questions as any)[currentQuestion]?.type}
+            dataTransfer={handleDataFromChild}
+            next={(questions as any)[currentQuestion]?.next}
+          />
+        </div>
       )}
-
 
       {choice === "conditionA" && currentQuestion === "choice" && (
-        <QuestionTab
-          question={(questions as any).q7.question}
-          options={(questions as any).q7.answer}
-          type={(questions as any).q7.type}
-          dataTransfer={handleDataFromChild}
-          next={(questions as any).q7.next}
-        ></QuestionTab>
+        <div className="relative z-10">
+          <QuestionTab
+            question={(questions as any).q7.question}
+            options={(questions as any).q7.answer}
+            type={(questions as any).q7.type}
+            dataTransfer={handleDataFromChild}
+            next={(questions as any).q7.next}
+          />
+        </div>
       )}
 
-      <div className="md:absolute bottom-5 right-2">
-        <ImageBox></ImageBox>
+      {/* CHANGED: Made image positioning fully responsive - hidden on mobile, positioned differently on larger screens */}
+      <div className="hidden sm:block absolute bottom-2 right-2 sm:bottom-4 sm:right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 xl:bottom-12 xl:right-12">
+        <ImageBox />
       </div>
 
+      {/* CHANGED: Adjusted button positioning to avoid overlap with image and made it more responsive */}
       <button
         onClick={nextHandler}
-        className="teal-color absolute bottom-3 sm:bottom-3.5 right-4 sm:right-8 lg:right-[300px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl"
+        className="teal-color absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-xl transition-shadow"
       >
         Next
       </button>

@@ -1,0 +1,25 @@
+
+.blue-color {
+    background: #EAF6FB;
+}
+
+.dark-blue-color {
+    color: #1D3557;
+}
+
+.teal-color {
+    border: 3px solid #4CB7A5;
+}
+
+.teal-background {
+    background: #4CB7A5;
+}
+
+.blue-light {
+    background: #4DB6AC;
+}
+
+.selected {
+    background-color: aqua;
+    border: 3px solid #4CB7A5;
+}

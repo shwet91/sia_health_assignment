@@ -3,6 +3,7 @@ const questions = {
   q1: {
     question: "What brings you here today?",
     type: "multiSelection",
+    next : "q2",
     answer: {
       "I want to check if I have a hormonal imbalance": "q3",
       "I am struggling with weight gain": "q3",
@@ -11,9 +12,9 @@ const questions = {
       "I am currently pregnant and want to support my body": "q3",
       "I think I may be in perimenopause or menopause": "q3",
       "I feel tired or not like myself": "q3",
-      "I have been diagnosed before and need support": "q2",
+      "I have been diagnosed before and need support": "",
       "Just curious": "q3",
-    },
+  },
   },
   q2: {
     question: "What have you been diagnosed with?",
@@ -33,10 +34,10 @@ const questions = {
     type: "multiSelection",
     answer: {
       "PCOS / PCOD": "q4",
-      "Thyroid disorders (Hypothyroid, Hashimoto’s)": "q4",
+      "Thyroid disorders (Hypothyroid, Hashimoto's)": "q4",
       "Menstrual irregularities": "q4",
       "Weight fluctuations": "q4",
-      Endometriosis: "q4",
+      "Endometriosis": "q4",
       "Menopause (post/peri)": "q4",
       "Insulin resistance": "q4",
       "None / Not sure": "q4",

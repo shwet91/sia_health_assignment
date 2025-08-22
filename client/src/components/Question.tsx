@@ -1,75 +1,41 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import QuestionTab from "./QuestionTab";
+import questions from "@/lib/questions";
 
-function Question({
-  question = "this is your question",
-  options = [
-    "option 1",
-    "option 2",
-    "option 3",
-    "option 4",
-    "option 6",
-    "option 7",
-    "option 8",
-    "option 9",
-  ],
-  type = "multipleSelection",
-}: {
-  question: string;
-  options: string[];
-  type: string;
-}) {
-  const [input, setInput] = useState();
-  const [selectedOptions, setSelectedOptins] = useState<number[]>([]);
+function Question() {
+  const nextHandler = () => {
 
-  const btnHandler = (index: number, value: string) => {
-    if (type === "singleSelection") {
-      selectedOptions.includes(index)
-        ? setSelectedOptins([])
-        : setSelectedOptins([index]);
-    } else if (type === "multipleSelection") {
-      selectedOptions.includes(index)
-        ? setSelectedOptins((prev) => prev.filter((i) => i !== index))
-        : setSelectedOptins((prev) => [...prev, index]);
-    }
   };
-
   return (
-    <div className=" w-full m-4 rounded-lg  flex flex-col">
-      <div className="flex justify-between p-4 bg-gray-800">
-        <button className="underline  text-2xl">Previous</button>
-        <button className="underline  text-2xl">Exit</button>
-      </div>
-      <div className="bg-white h-[100px] flex justify-center items-center">
-        <h1 className="text-black text-2xl">{question}</h1>
-      </div>
-      <div className="bg-gray-500 flex-1 justify-between items-center flex-col flex thisOne">
-        <div className="w-[90%] flex flex-col mt-4 mb-10 h-[75%]">
-          {options.length > 0
-            ? options.map((e, i) => (
-                <button
-                  className={` px-6 py-2 rounded-md mb-2  text-2xl ${
-                    selectedOptions.includes(i)
-                      ? "bg-blue-500 text-white"
-                      : "bg-green-400"
-                  }`}
-                  key={i}
-                  onClick={() => btnHandler(i, e)}
-                >
-                  {e}
-                </button>
-              ))
-            : null}
+    <div className=" w-full m-4 rounded-4xl p-4 bg-white relative flex flex-col">
+      <div className="flex justify-between p-8 ">
+        <div className="dark-blue-color">HealthCare</div>
+        <div>
+          <ul className="flex">
+            <li className="dark-blue-color ml-5 ">Home</li>
+            <li className="dark-blue-color ml-5">About</li>
+            <li className="dark-blue-color ml-5">Contact</li>
+          </ul>
         </div>
-
-        <button
-          className={`px-6 py-2 bg-red-400 w-[90%] mb-4 text-4xl rounded-2xl`}
-        >
-          {" "}
-          Next
-        </button>
       </div>
+
+      <div className=" w-[50%] ml-8">
+        <h1 className="dark-blue-color text-6xl">Take a Health Quiz</h1>
+        <p className="dark-blue-color text-sm ml-3 mt-5">
+          Amswer a few questions to check your mental health status
+        </p>
+      </div>
+
+      <QuestionTab question={questions.q1.question} options={questions.q1.answer} type={questions.q1.type}></QuestionTab>
+
+      <button
+        onClick={nextHandler}
+        className="teal-color absolute bottom-3.5 right-[300px] w-[200px] h-[50px] rounded-2xl teal-background text-2xl"
+      >
+        Next
+      </button>
     </div>
   );
 }

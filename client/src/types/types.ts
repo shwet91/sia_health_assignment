@@ -5,3 +5,9 @@ interface UserData {
   age: string | null;
   gender: "male" | "femail" | null;
 }
+
+interface answer {
+  question ?: string[]
+}
+
+type Options = Record<string, string>;

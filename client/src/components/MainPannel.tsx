@@ -6,7 +6,7 @@ import questions from "@/lib/questions";
 import GroupQuestionTab from "./GroupQuestionTab";
 import { conditions } from "@/lib/questions";
 
-function Question() {
+function MainPannel() {
   const [currentQuestion, setCurrentQuestion] = useState<string>("q1");
   const [finalAnswer, setFinalAnswer] = useState<any>([]);
   const [currentSelectedAnswer, setCurrentSelectedAnswer] = useState([]);
@@ -172,4 +172,4 @@ function Question() {
   );
 }
 
-export default Question;
+export default MainPannel;

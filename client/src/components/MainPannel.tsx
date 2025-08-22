@@ -5,9 +5,36 @@ import QuestionTab from "./QuestionTab";
 import questions from "@/lib/questions";
 import GroupQuestionTab from "./GroupQuestionTab";
 import { conditions } from "@/lib/questions";
+import Image from "next/image";
 
 // Changed to any to avoid type checking issues
 type QuestionKey = any;
+
+function ImageBox() {
+  return (
+    <div className="w-64 h-64 md:h-[500px] md:w-[500px] overflow-hidden rounded-2xl relative">
+      <Image
+        src="/girl.jpg" // put your image inside /public
+        alt="sample"
+        fill
+        className="object-cover"
+      />
+    </div>
+  );
+}
+
+function Logo() {
+  return (
+    <div className="w-16 h-16 overflow-hidden rounded-2xl relative">
+      <Image
+        src="/logo.jpg" // put your image inside /public
+        alt="sample"
+        fill
+        className="object-cover"
+      />
+    </div>
+  );
+}
 
 function MainPannel() {
   // Changed all useState types to any
@@ -15,7 +42,8 @@ function MainPannel() {
   const [finalAnswer, setFinalAnswer] = useState<any>([]);
   const [currentSelectedAnswer, setCurrentSelectedAnswer] = useState<any>([]);
   const [nextQuestion, setNextQuestion] = useState<any>();
-  const [groupCurrentSelectedAnswer, setGroupCurrentSelectedAnswer] = useState<any>([]);
+  const [groupCurrentSelectedAnswer, setGroupCurrentSelectedAnswer] =
+    useState<any>([]);
   const [choice, setChoice] = useState<any>({});
 
   const nextHandler = () => {
@@ -107,8 +135,9 @@ function MainPannel() {
   return (
     <div className="w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col">
       <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start p-4 sm:p-6 lg:p-8">
-        <div className="dark-blue-color text-lg sm:text-xl mb-4 sm:mb-0">
-          HealthCare
+        <div className="dark-blue-color text-lg sm:text-xl mb-4 sm:mb-0 flex items-center">
+          <Logo></Logo>
+          <h1 className="text-3xl">HealthCare</h1>
         </div>
         <div>
           <ul className="flex flex-wrap justify-center sm:justify-end">
@@ -140,25 +169,27 @@ function MainPannel() {
         </button>
       </div>
 
-      {/* Fixed potential undefined access with optional chaining and type casting */}
+ 
       {(questions as any)[currentQuestion]?.type === "GroupSelection" && (
         <div className="flex w-full lg:w-[80%] xl:w-[50%] flex-wrap px-4 sm:px-0">
-          {Object.keys((questions as any).q5.catogories).map((e: any, i: any) => {
-            const currentData = (questions as any).q5.catogories[e];
-            return (
-              <GroupQuestionTab
-                key={i}
-                question={currentData.question}
-                options={currentData.answer}
-                index={i}
-                dataTransfer={handleDataFromChild}
-              ></GroupQuestionTab>
-            );
-          })}
+          {Object.keys((questions as any).q5.catogories).map(
+            (e: any, i: any) => {
+              const currentData = (questions as any).q5.catogories[e];
+              return (
+                <GroupQuestionTab
+                  key={i}
+                  question={currentData.question}
+                  options={currentData.answer}
+                  index={i}
+                  dataTransfer={handleDataFromChild}
+                ></GroupQuestionTab>
+              );
+            }
+          )}
         </div>
       )}
 
-      {/* Fixed potential undefined access with type casting */}
+ 
       {((questions as any)[currentQuestion]?.type === "singleSelection" ||
         (questions as any)[currentQuestion]?.type === "multiSelection") && (
         <QuestionTab
@@ -170,7 +201,7 @@ function MainPannel() {
         ></QuestionTab>
       )}
 
-      {/* Fixed potential undefined access with type casting */}
+
       {choice === "conditionA" && currentQuestion === "choice" && (
         <QuestionTab
           question={(questions as any).q7.question}
@@ -180,6 +211,10 @@ function MainPannel() {
           next={(questions as any).q7.next}
         ></QuestionTab>
       )}
+
+      <div className="md:absolute bottom-5 right-2">
+        <ImageBox></ImageBox>
+      </div>
 
       <button
         onClick={nextHandler}

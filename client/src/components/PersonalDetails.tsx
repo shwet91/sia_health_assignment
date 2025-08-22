@@ -35,7 +35,7 @@ function PersonalDetails() {
       currentNumber === 4 &&
       (input === "male" || input === "femail")
     ) {
-      setUserData((prev) => ({ ...prev, gender: input }));
+      setUserData((prev : any) => ({ ...prev, gender: input }));
       setInput("");
       setQuestion(null);
       console.log(userData);

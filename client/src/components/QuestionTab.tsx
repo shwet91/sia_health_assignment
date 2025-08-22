@@ -15,18 +15,28 @@ function QuestionTab({
     "option 9": "q1",
   },
   type = "singleSelection",
-  next,
+  next = "q4",
+  dataTransfer = () => {},
 }: {
   question: string;
-  options: Options;
-  type: string;
-  next ?: string;
+  options: any;
+  type: any;
+  next?: any;
+  dataTransfer: any;
 }) {
   const [input, setInput] = useState();
   const [selectedOptions, setSelectedOptins] = useState<number[]>([]);
   const [answer, setAnswer] = useState<answer>({});
-  const [nextQuestion, setNextQuestion] = useState<string>();
+  const [nextQuestion, setNextQuestion] = useState<string | null>(null);
   const answerArray = Object.keys(options);
+
+  const func = () => {
+    console.log(nextQuestion);
+  };
+
+  useEffect(() => {
+    dataTransfer(answer, nextQuestion);
+  }, [answer, nextQuestion]);
 
   const btnHandler = (index: number, value: string) => {
     if (type === "singleSelection") {
@@ -56,27 +66,41 @@ function QuestionTab({
     }
   };
 
-  useEffect(() => {
-    if (answer.question?.length === 0) return;
+  // logic to set next question
 
-    let curentNextValue: null | string = null;
-    answer.question?.forEach((e: string) => {
-      if (curentNextValue === null) {
-        if (options[e] === "" && next) {
-          curentNextValue = next;
-        } else {
-          curentNextValue = options[e];
-        }
+  useEffect(() => {
+    if (answer[question]?.length === 0) return;
+
+    let curentNextValue: string[] = [];
+    answer[question]?.forEach((e: string) => {
+      if (options[e] === "" && next) {
+        curentNextValue.push(next);
+      } else {
+        if (curentNextValue.includes(options[e])) return;
+        curentNextValue.push(options[e]);
       }
     });
 
-    if (curentNextValue) {
-       setNextQuestion(curentNextValue);
+    if (curentNextValue.length === 1) {
+      setNextQuestion(curentNextValue[0]);
+    } else {
+      setNextQuestion(next);
     }
-  }, [answer]);
+  }, [answer[question]]);
+
+  useEffect(() => {
+    setSelectedOptins([]);
+  }, [question]);
+
+  useEffect(() => {
+    if (selectedOptions.length === 0) setNextQuestion(null);
+  }, [selectedOptions]);
   return (
     <div className=" w-[50%] 1h-[300px] ml-8 mt-5">
       <h1 className="dark-blue-color text-2xl">{question}</h1>
+      <button onClick={func} className="text-black">
+        Click me
+      </button>
       <div className="  h-[90%] ">
         {answerArray.length > 0
           ? answerArray.map((e, i) => (

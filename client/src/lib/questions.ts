@@ -3,7 +3,7 @@ const questions = {
   q1: {
     question: "What brings you here today?",
     type: "multiSelection",
-    next : "q2",
+    next: "q2",
     answer: {
       "I want to check if I have a hormonal imbalance": "q3",
       "I am struggling with weight gain": "q3",
@@ -14,11 +14,12 @@ const questions = {
       "I feel tired or not like myself": "q3",
       "I have been diagnosed before and need support": "",
       "Just curious": "q3",
-  },
+    },
   },
   q2: {
     question: "What have you been diagnosed with?",
     type: "singleSelection",
+    next: "q5",
     answer: {
       PCOS: "q5",
       Hypothyroidism: "q5",
@@ -32,21 +33,23 @@ const questions = {
   q3: {
     question: "Do you experience any of the following hormonal health issues?",
     type: "multiSelection",
+    next: "q4",
     answer: {
-      "PCOS / PCOD": "q4",
-      "Thyroid disorders (Hypothyroid, Hashimoto's)": "q4",
-      "Menstrual irregularities": "q4",
-      "Weight fluctuations": "q4",
-      "Endometriosis": "q4",
-      "Menopause (post/peri)": "q4",
-      "Insulin resistance": "q4",
-      "None / Not sure": "q4",
+      "PCOS / PCOD": "q5",
+      "Thyroid disorders (Hypothyroid, Hashimoto's)": "q5",
+      "Menstrual irregularities": "q5",
+      "Weight fluctuations": "q5",
+      Endometriosis: "q5",
+      "Menopause (post/peri)": "q5",
+      "Insulin resistance": "q5",
+      "None / Not sure": "",
     },
   },
   q4: {
     question:
       "Have you ever been recommended a hormone test, thyroid test, or ultrasound?",
     type: "singleSelection",
+    next: "q5",
     answer: {
       "Yes, and did the tests": "q5",
       "Yes, but didn't do it": "q5",
@@ -114,12 +117,13 @@ const questions = {
   q6: {
     question: "Symptom Duration",
     type: "singleSelection",
+    next: "q7",
     answer: {
-      "Less than 3 months": null,
-      "3 - 12 months": null,
-      "1 - 3 years": null,
-      "More than 3 years": null,
-      "Can't remember": null,
+      "Less than 3 months": "",
+      "3 - 12 months": "",
+      "1 - 3 years": "",
+      "More than 3 years": "",
+      "Can't remember": "",
     },
   },
 
@@ -127,55 +131,50 @@ const questions = {
 
   q7: {
     question: "Do any of these apply?",
-    answer: [
-      "Diagnosed via ultrasound (cysts seen)",
-      "High AMH",
-      "High androgens (acne/hair)",
-      "Diagnosed insulin resistance",
-      "Not sure",
-    ],
+    next: "q8",
+    answer: {
+      "Diagnosed via ultrasound (cysts seen)": "",
+      "High AMH": "",
+      "High androgens (acne/hair)": "",
+      "Diagnosed insulin resistance": "",
+      "Not sure": "",
+    },
   },
   q8: {
     question: "Do any of these apply?",
-    answer: [
-      "Periods reducing in frequency",
-      "Hot flashes",
-      "Vaginal dryness/discomfort",
-      "Disturbed sleep",
-      "Periods stopped before age 40",
-      "Not sure",
-    ],
+    next: "q9",
+    answer: {
+      "Periods reducing in frequency": "",
+      "Hot flashes": "",
+      "Vaginal dryness/discomfort": "",
+      "Disturbed sleep": "",
+      "Periods stopped before age 40": "",
+      "Not sure": "",
+    },
   },
   q9: {
     question: "What do you want support with?",
-    answer: [
-      "Nutrition in pregnancy",
-      "PCOS/thyroid management in pregnancy",
-      "Healthy weight gain",
-      "Gut or digestion issues",
-      "Not sure",
-    ],
+    next: "q10",
+    answer: {
+      "Nutrition in pregnancy": "",
+      "PCOS/thyroid management in pregnancy": "",
+      "Healthy weight gain": "",
+      "Gut or digestion issues": "",
+      "Not sure": "",
+    },
   },
   // use separate component - 1 for q10
   q10: {
     question:
       "Would you like a personalized summary or expert guidance based on your responses?",
-    answer: [
-      "Yes, book a free call",
-      "Yes, WhatsApp me",
-      "Maybe later",
-      "No thanks",
-    ],
+    next: "",
+    answer: {
+      "Yes, book a free call": "",
+      "Yes, WhatsApp me": "",
+      "Maybe later": "",
+      "No thanks": "",
+    },
   },
 };
-
-const questionConditions = [
-  {
-    condition: {
-      q1: "I have been diagnosed before and need support",
-    },
-    next: "q2",
-  },
-];
 
 export default questions;

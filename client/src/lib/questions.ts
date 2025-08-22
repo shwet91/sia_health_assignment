@@ -117,7 +117,7 @@ const questions = {
   q6: {
     question: "Symptom Duration",
     type: "singleSelection",
-    next: "q7",
+    next: "choice",
     answer: {
       "Less than 3 months": "",
       "3 - 12 months": "",
@@ -131,7 +131,8 @@ const questions = {
 
   q7: {
     question: "Do any of these apply?",
-    next: "q8",
+    type: "singleSelection",
+    next: "q10",
     answer: {
       "Diagnosed via ultrasound (cysts seen)": "",
       "High AMH": "",
@@ -142,7 +143,8 @@ const questions = {
   },
   q8: {
     question: "Do any of these apply?",
-    next: "q9",
+    next: "q10",
+    type: "singleSelection",
     answer: {
       "Periods reducing in frequency": "",
       "Hot flashes": "",
@@ -155,6 +157,7 @@ const questions = {
   q9: {
     question: "What do you want support with?",
     next: "q10",
+    type: "singleSelection",
     answer: {
       "Nutrition in pregnancy": "",
       "PCOS/thyroid management in pregnancy": "",
@@ -167,7 +170,8 @@ const questions = {
   q10: {
     question:
       "Would you like a personalized summary or expert guidance based on your responses?",
-    next: "",
+    type: "singleSelection",
+    next: "end",
     answer: {
       "Yes, book a free call": "",
       "Yes, WhatsApp me": "",
@@ -178,3 +182,22 @@ const questions = {
 };
 
 export default questions;
+
+export const conditions = {
+  conditionA: [
+    "PCOS",
+    // "PCOS / PCOD",
+    "Acne (jawline or chin)",
+    "Irregular cycles (<21 or >35 days)",
+    "Constant fatigue / low energy",
+  ],
+
+  conditionB: ["Premature menopause", "Menopause (post/peri)"],
+  conditionC: [
+    "Trouble falling asleep",
+    "Hot flashes or night sweats",
+    "Hot flashes",
+  ],
+  conditionD: ["I am planning for pregnancy"],
+  conditionE: ["I am currently pregnant and want to support my body"],
+};

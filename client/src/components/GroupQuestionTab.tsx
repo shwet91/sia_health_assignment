@@ -5,7 +5,7 @@ import "../styles/design.css";
 function GroupQuestionTab({
   question = "this question",
   options = ["option 1", "option 2", "option 3", "option 4", "option 6"],
-  next = "q4",
+  next = "q6",
   dataTransfer = () => {},
   index = 4,
 }: {
@@ -15,9 +15,8 @@ function GroupQuestionTab({
   dataTransfer?: any;
   index?: number;
 }) {
-  const [input, setInput] = useState();
   const [selectedOptions, setSelectedOptins] = useState<number[]>([]);
-  const [answer, setAnswer] = useState<answer | null>();
+  const [answer, setAnswer] = useState<any>({});
 
   const func = () => {
     console.log(answer);
@@ -33,12 +32,16 @@ function GroupQuestionTab({
     if (selectedOptions.includes(index)) {
       setSelectedOptins([]);
       setAnswer({
-        [question]: [],
+        question: `${question}`,
+        type: "GroupSelection",
+        answer: [],
       });
     } else {
       setSelectedOptins([index]);
       setAnswer({
-        [question]: [value],
+        question: `${question}`,
+        type: "GroupSelection",
+        answer: [value],
       });
     }
   };

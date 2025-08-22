@@ -26,7 +26,7 @@ function QuestionTab({
 }) {
   const [input, setInput] = useState();
   const [selectedOptions, setSelectedOptins] = useState<number[]>([]);
-  const [answer, setAnswer] = useState<answer>({});
+  const [answer, setAnswer] = useState({});
   const [nextQuestion, setNextQuestion] = useState<string | null>(null);
   const answerArray = Object.keys(options);
 
@@ -46,21 +46,29 @@ function QuestionTab({
       } else {
         setSelectedOptins([index]);
         setAnswer({
-          [question]: [value],
+          question,
+          type: "singleSelection",
+          answer: [value],
         });
       }
     } else if (type === "multiSelection") {
       if (selectedOptions.includes(index)) {
+        // remove from selection
         setSelectedOptins((prev) => prev.filter((i) => i !== index));
         setAnswer((prev: any) => ({
           ...prev,
-          [question]: prev[question]?.filter((i: string) => i !== value) || [],
+          question,
+          type: "multiSelection",
+          answer: prev.answer?.filter((i: string) => i !== value) || [],
         }));
       } else {
+        // add to selection
         setSelectedOptins((prev) => [...prev, index]);
         setAnswer((prev: any) => ({
           ...prev,
-          [question]: [...(prev[question] || []), value],
+          question,
+          type: "multiSelection",
+          answer: [...(prev.answer || []), value],
         }));
       }
     }
@@ -69,10 +77,10 @@ function QuestionTab({
   // logic to set next question
 
   useEffect(() => {
-    if (answer[question]?.length === 0) return;
+    if (answer.answer?.length === 0) return;
 
     let curentNextValue: string[] = [];
-    answer[question]?.forEach((e: string) => {
+    answer.answer?.forEach((e: string) => {
       if (options[e] === "" && next) {
         curentNextValue.push(next);
       } else {
@@ -80,16 +88,16 @@ function QuestionTab({
         curentNextValue.push(options[e]);
       }
     });
-
     if (curentNextValue.length === 1) {
       setNextQuestion(curentNextValue[0]);
     } else {
       setNextQuestion(next);
     }
-  }, [answer[question]]);
+  }, [answer.answer?.join(","), next, options]);
 
   useEffect(() => {
     setSelectedOptins([]);
+    setAnswer({});
   }, [question]);
 
   useEffect(() => {

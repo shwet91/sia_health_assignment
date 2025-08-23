@@ -17,104 +17,7 @@ const details: UserDetails = {
   gender: "",
 };
 
-// export default function PersonalDetails({
-//   next = "q1",
-//   dataTransfer = () => {},
-// }: {
-//   next?: any;
-//   dataTransfer?: any;
-// }) {
-//   const [nextQuestion, setNextQuestion] = useState<string | null>(null);
-//   const [details, setDetails] = useState<UserDetails>({
-//     name: "",
-//     email: "",
-//     phoneNo: "",
-//     age: "",
-//     gender: "",
-//   });
-
-//   const [currentIndex, setCurrentIndex] = useState(0);
-//   const keys = Object.keys(details) as (keyof UserDetails)[];
-
-//   const func = () => {
-//     console.log(nextQuestion);
-//   };
-
-//   const btnHandler = () => {
-//     if (currentIndex < keys.length - 1) {
-//       setCurrentIndex((prev) => prev + 1);
-//     } else {
-//       // ✅ finished collecting all details
-//       dataTransfer(details);
-//       console.log("Collected Details:", details);
-//     }
-//   };
-
-//   const inputHandler = (key: keyof UserDetails, value: string) => {
-//     setDetails((prev) => ({
-//       ...prev,
-//       [key]: value,
-//     }));
-//   };
-
-//   return (
-//     <div className="w-full sm:w-[80%] lg:w-[50%] h-auto min-h-[200px] ml-4 sm:ml-6 lg:ml-8 mt-3 sm:mt-5 px-2 sm:px-0">
-//       <h1 className="dark-blue-color text-lg sm:text-xl lg:text-2xl leading-tight">
-//         give us you basic details before proceding
-//       </h1>
-//       <h1 className="dark-blue-color text-lg sm:text-xl lg:text-2xl leading-tight">
-//         Enter your {Object.keys(details)[currentIndex]}
-//       </h1>
-//       <button onClick={func} className="text-black text-sm sm:text-base">
-//         Click me
-//       </button>
-
-//       <div className="border-3 border-amber-500 h-auto min-h-[150px] mt-2 sm:mt-4 p-2">
-//         <input
-//           type="text"
-//           placeholder="Enter your name"
-//           className={` ${
-//             currentIndex === 4 ? "hidden" : ""
-//           } text-black border p-1 rounded`}
-//           autoComplete="off"
-//           value={details.name}
-//           onChange={(e) => inputHandler("name", e.target.value)}
-//         />
-
-//         <div className="border-3 border-amber-500">
-//           <button
-//             className={` ${
-//               currentIndex !== 4 ? "hidden" : ""
-//             } ml-2 px-3 py-1 rounded bg-amber-500 text-white`}
-//             type="button"
-//           >
-//             Male
-//           </button>
-//           <button
-//             className={` ${
-//               currentIndex !== 4 ? "hidden" : ""
-//             } ml-2 px-3 py-1 rounded bg-amber-500 text-white`}
-//             type="button"
-//           >
-//             Femail
-//           </button>
-//         </div>
-
-//         <button
-//           type="button"
-//           className=" ml-2 px-3 py-1 rounded bg-amber-500 text-white"
-//           //   type="button"
-//           onClick={btnHandler}
-//         >
-//           Submit
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence, Variants  } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import "../styles/design.css";
 
 function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
@@ -147,17 +50,12 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     gender: { placeholder: "", type: "select", label: "Gender" },
   };
 
-  const func = () => {
-    console.log(nextQuestion);
-  };
-
   const btnHandler = () => {
     if (currentIndex < keys.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
       // ✅ finished collecting all details
       dataTransfer(details, "q1");
-      console.log("Collected Details:", details);
     }
   };
 
@@ -172,7 +70,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
   const currentFieldConfig = fieldConfig[getCurrentField()];
 
   // Animation variants
-  const containerVariants : Variants  = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -186,7 +84,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     },
   };
 
-  const questionVariants : Variants  = {
+  const questionVariants: Variants = {
     hidden: { opacity: 0, x: 50 },
     visible: {
       opacity: 1,
@@ -200,7 +98,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     },
   };
 
-  const inputVariants : Variants  = {
+  const inputVariants: Variants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
       opacity: 1,
@@ -209,7 +107,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     },
   };
 
-  const buttonVariants : Variants  = {
+  const buttonVariants: Variants = {
     hover: {
       scale: 1.05,
       boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
@@ -218,7 +116,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     tap: { scale: 0.95 },
   };
 
-  const progressVariants : Variants  = {
+  const progressVariants: Variants = {
     hidden: { width: 0 },
     visible: {
       width: `${((currentIndex + 1) / keys.length) * 100}%`,
@@ -284,11 +182,6 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
           What's your {currentFieldConfig.label.toLowerCase()}?
         </motion.h2>
       </AnimatePresence>
-
-      {/* Debug Button */}
-      <button onClick={func} className="hidden text-black text-sm sm:text-base">
-        Click me
-      </button>
 
       {/* Input Container */}
       <motion.div

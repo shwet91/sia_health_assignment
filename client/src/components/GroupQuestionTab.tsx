@@ -18,9 +18,7 @@ function GroupQuestionTab({
   const [selectedOptions, setSelectedOptins] = useState<number[]>([]);
   const [answer, setAnswer] = useState<any>({});
 
-  const func = () => {
-    console.log(answer);
-  };
+
 
   useEffect(() => {
     if (!answer) return;
@@ -78,9 +76,6 @@ function GroupQuestionTab({
       <h1 className="dark-blue-color text-lg sm:text-xl leading-tight mb-2">
         {question}
       </h1>
-      <button onClick={func} className="text-black text-sm sm:text-base">
-        Click me
-      </button>
       <div className="h-auto min-h-[120px] mt-2">
         {options.length > 0
           ? options.map((e: any, i: any) => (

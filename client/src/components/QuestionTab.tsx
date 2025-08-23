@@ -30,10 +30,6 @@ function QuestionTab({
   const [nextQuestion, setNextQuestion] = useState<string | null>(null);
   const answerArray = Object.keys(options);
 
-  const func = () => {
-    console.log(nextQuestion);
-  };
-
   useEffect(() => {
     dataTransfer(answer, nextQuestion);
   }, [answer, nextQuestion]);
@@ -77,7 +73,7 @@ function QuestionTab({
   // logic to set next question
 
   useEffect(() => {
-    if(!answer) return;
+    if (!answer) return;
 
     if (answer.answer?.length === 0) return;
 
@@ -111,16 +107,13 @@ function QuestionTab({
       <h1 className="dark-blue-color text-lg sm:text-xl lg:text-2xl leading-tight">
         {question}
       </h1>
-      <button onClick={func} className="text-black text-sm sm:text-base">
-        Click me
-      </button>
       <div className="h-auto min-h-[150px] mt-2 sm:mt-4">
         {answerArray.length > 0
           ? answerArray.map((e, i) => (
               <div
                 onClick={() => btnHandler(i, e)}
                 key={i}
-                className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 hover:bg-gray-50 rounded-lg sm:rounded-none transition-colors duration-200"
+                className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 rounded-lg sm:rounded-none transition-colors duration-200"
               >
                 <div
                   className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 ${

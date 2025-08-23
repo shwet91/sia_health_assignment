@@ -75,28 +75,35 @@ function MainPannel() {
     if (nextQuestion === "end") {
       if (isLoading === true) return;
 
-      setIsLoading(true);
-      setCurrentQuestion("q10");
-      console.log("started fetching");
-      const resposne = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: userDetails?.name,
-          email: userDetails?.email,
-          phoneNo: userDetails?.phoneNo,
-          age: userDetails?.age,
-          gender: userDetails?.gender,
-          answers: finalAnswer,
-        }),
-      });
+      try {
+        setIsLoading(true);
+        setCurrentQuestion("q10");
+        const response = await fetch("/api/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: userDetails?.name,
+            email: userDetails?.email,
+            phoneNo: userDetails?.phoneNo,
+            age: userDetails?.age,
+            gender: userDetails?.gender,
+            answers: finalAnswer,
+          }),
+        });
 
-      console.log(resposne);
-      setFinalAnswer([]);
-      setUserDetails(null);
-      setIsLoading(false);
+        if (!response.ok) {
+          throw new Error(`Failed with status ${response.status}`);
+        }
 
-      router.push("/Response");
+        setFinalAnswer([]);
+        setUserDetails(null);
+        setIsLoading(false);
+        router.push("/Response");
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -125,7 +132,6 @@ function MainPannel() {
 
     if (nextQues) setNextQuestion(nextQues);
   };
-
 
   function arraysEqualIgnoringOrder(arr1: any, arr2: any) {
     if (arr1.length !== arr2.length) return false;
@@ -178,7 +184,13 @@ function MainPannel() {
   }, [finalAnswer]);
 
   return (
-    <div className={` ${((questions as any)[currentQuestion]?.type === "GroupSelection") ? "min-h-[1650px]" : "min-h-[920px]"} w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col  md:min-h-[500px] sm:min-h-[900px] lg:min-h-[800px]`}>
+    <div
+      className={` ${
+        (questions as any)[currentQuestion]?.type === "GroupSelection"
+          ? "min-h-[1650px]"
+          : "min-h-[920px]"
+      } w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col  md:min-h-[500px] sm:min-h-[900px] lg:min-h-[800px]`}
+    >
       {/* CHANGED: Improved header layout for logo and navigation */}
       <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start p-4 sm:p-6 lg:p-8 relative z-10">
         {/* CHANGED: Enhanced logo section with better alignment and responsive text */}

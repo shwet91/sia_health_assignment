@@ -6,18 +6,22 @@ import questions from "@/lib/questions";
 import GroupQuestionTab from "./GroupQuestionTab";
 import { conditions } from "@/lib/questions";
 import Image from "next/image";
+import { useAppDispatch } from "@/store/store";
+import { setUserResponse } from "@/store/slices/DataClice";
+import { useRouter } from "next/navigation";
+import PersonalDetails from "./PersonalDetail";
 
 // Changed to any to avoid type checking issues
 type QuestionKey = any;
 
 function ImageBox() {
   return (
-    <div className="w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 overflow-hidden rounded-xl sm:rounded-2xl relative shadow-lg">
+    <div className="w-48 h-48 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 overflow-hidden rounded-xl sm:rounded-2xl relative">
       <Image
         src="/girl.jpg" // put your image inside /public
         alt="sample"
         fill
-        className="object-cover"
+        className="object-cover "
       />
     </div>
   );
@@ -38,13 +42,17 @@ function Logo() {
 
 function MainPannel() {
   // Changed all useState types to any
-  const [currentQuestion, setCurrentQuestion] = useState<any>("q1");
+  const [currentQuestion, setCurrentQuestion] = useState<any>("details");
+  // I am changing currentQuestion from q1 to details
   const [finalAnswer, setFinalAnswer] = useState<any>([]);
   const [currentSelectedAnswer, setCurrentSelectedAnswer] = useState<any>([]);
   const [nextQuestion, setNextQuestion] = useState<any>();
   const [groupCurrentSelectedAnswer, setGroupCurrentSelectedAnswer] =
     useState<any>([]);
-  const [choice, setChoice] = useState<any>({});
+  const [choice, setChoice] = useState<any>("");
+  const [userDetails , setUserDetails] = useState(null)
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const nextHandler = () => {
     if (nextQuestion && nextQuestion !== "choice") {
@@ -57,6 +65,10 @@ function MainPannel() {
       setFinalAnswer((prev: any) => [...prev, ...groupCurrentSelectedAnswer]);
     } else {
       setFinalAnswer((prev: any) => [...prev, currentSelectedAnswer]);
+    }
+
+    if (nextQuestion === "end") {
+      router.push("/Response");
     }
   };
 
@@ -78,14 +90,19 @@ function MainPannel() {
       setCurrentSelectedAnswer(ans);
     }
 
+    if (currentQuestion === "details"){
+      setCurrentQuestion(nextQues);
+      setUserDetails(ans)
+    }
+
     if (nextQues) setNextQuestion(nextQues);
   };
 
   const btnHandler = () => {
-    // console.log(groupCurrentSelectedAnswer);
+    console.log(userDetails);
     console.log(finalAnswer);
-    console.log(choice);
-    console.log(currentQuestion);
+    // console.log(choice);
+    // console.log(currentQuestion);
     console.log(nextQuestion);
     // console.log(questions[currentQuestion]);
   };
@@ -105,7 +122,7 @@ function MainPannel() {
     (array: any) => {
       // collect all matching answers
       const condition1 = finalAnswer.flatMap((e: any) =>
-        e.answer.filter((ans: any) => array.includes(ans))
+        e?.answer.filter((ans: any) => array.includes(ans))
       );
 
       const isEqual = arraysEqualIgnoringOrder(condition1, array);
@@ -113,6 +130,12 @@ function MainPannel() {
     },
     [finalAnswer]
   );
+
+  useEffect(() => {
+    if (nextQuestion === "choice" && choice === "") {
+      setNextQuestion("q10");
+    }
+  }, [nextQuestion, choice]);
 
   useEffect(() => {
     const isConditionATrue = checkCondition(conditions.conditionA);
@@ -130,10 +153,12 @@ function MainPannel() {
     } else if (isConditionETrue) {
       setChoice("conditionC");
     }
+
+    dispatch(setUserResponse(finalAnswer));
   }, [finalAnswer]);
 
   return (
-    <div className="w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col min-h-[600px] sm:min-h-[700px] lg:min-h-[800px]">
+    <div className="w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col min-h-[920px]  md:min-h-[500px] sm:min-h-[900px] lg:min-h-[800px]">
       {/* CHANGED: Improved header layout for logo and navigation */}
       <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start p-4 sm:p-6 lg:p-8 relative z-10">
         {/* CHANGED: Enhanced logo section with better alignment and responsive text */}
@@ -158,7 +183,6 @@ function MainPannel() {
         </div>
       </div>
 
-      {/* CHANGED: Adjusted content layout to work with positioned image */}
       <div className="w-full sm:w-[90%] lg:w-[60%] xl:w-[50%] ml-4 sm:ml-6 lg:ml-8 px-2 sm:px-0 relative z-10">
         <h1 className="dark-blue-color text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight">
           Take a Health Quiz
@@ -206,7 +230,7 @@ function MainPannel() {
           />
         </div>
       )}
-
+      
       {choice === "conditionA" && currentQuestion === "choice" && (
         <div className="relative z-10">
           <QuestionTab
@@ -219,15 +243,47 @@ function MainPannel() {
         </div>
       )}
 
+      {choice === "conditionB" && currentQuestion === "choice" && (
+        <div className="relative z-10">
+          <QuestionTab
+            question={(questions as any).q8.question}
+            options={(questions as any).q8.answer}
+            type={(questions as any).q8.type}
+            dataTransfer={handleDataFromChild}
+            next={(questions as any).q8.next}
+          />
+        </div>
+      )}
+
+      {choice === "conditionC" && currentQuestion === "choice" && (
+        <div className="relative z-10">
+          <QuestionTab
+            question={(questions as any).q9.question}
+            options={(questions as any).q9.answer}
+            type={(questions as any).q9.type}
+            dataTransfer={handleDataFromChild}
+            next={(questions as any).q9.next}
+          />
+        </div>
+      )}
+
+      {currentQuestion === "details" && (
+        <div className="relative z-10">
+          <PersonalDetails dataTransfer={handleDataFromChild}></PersonalDetails>
+        </div>
+      )}
+
       {/* CHANGED: Made image positioning fully responsive - hidden on mobile, positioned differently on larger screens */}
-      <div className="hidden sm:block absolute bottom-2 right-2 sm:bottom-4 sm:right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 xl:bottom-12 xl:right-12">
+      <div className="hidden1 sm:block absolute bottom-2 right-2 sm:bottom-4 sm:right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 xl:bottom-12 xl:right-12">
         <ImageBox />
       </div>
 
       {/* CHANGED: Adjusted button positioning to avoid overlap with image and made it more responsive */}
       <button
         onClick={nextHandler}
-        className="teal-color absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-xl transition-shadow"
+        className={` ${
+          currentQuestion === "details" ? "hidden" : ""
+        } teal-color absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-xl transition-shadow`}
       >
         Next
       </button>

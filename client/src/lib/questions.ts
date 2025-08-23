@@ -1,5 +1,5 @@
 const questions = {
-  // use component-1 for q1, q2, q3, q4
+  // use component-1 for q1, q2, q3,
   q1: {
     question: "What brings you here today?",
     type: "multiSelection",

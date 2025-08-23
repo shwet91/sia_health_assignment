@@ -14,7 +14,7 @@ function Page() {
   return (
     <div className="w-full min-h-screen px-2 sm:px-4 lg:px-0 blue-color flex justify-center items-center">
       {/* <Navbar></Navbar> */}
-      <div className="w-full sm:w-[90%] lg:w-[75%] h-full flex-col p-2 sm:p-5 flex justify-center items-center">
+      <div className="w-full sm:w-[90%] lg:w-[80%] h-full flex-col p-2 sm:p-5 flex justify-center items-center">
         <MainPannel />
       </div>
     </div>

@@ -114,7 +114,7 @@ const details: UserDetails = {
 // }
 
 // import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants  } from "framer-motion";
 import "../styles/design.css";
 
 function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
@@ -172,7 +172,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
   const currentFieldConfig = fieldConfig[getCurrentField()];
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants : Variants  = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -186,7 +186,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     },
   };
 
-  const questionVariants = {
+  const questionVariants : Variants  = {
     hidden: { opacity: 0, x: 50 },
     visible: {
       opacity: 1,
@@ -200,7 +200,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     },
   };
 
-  const inputVariants = {
+  const inputVariants : Variants  = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
       opacity: 1,
@@ -209,7 +209,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     },
   };
 
-  const buttonVariants = {
+  const buttonVariants : Variants  = {
     hover: {
       scale: 1.05,
       boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
@@ -218,7 +218,7 @@ function PersonalDetails({ dataTransfer = () => {} }: { dataTransfer?: any }) {
     tap: { scale: 0.95 },
   };
 
-  const progressVariants = {
+  const progressVariants : Variants  = {
     hidden: { width: 0 },
     visible: {
       width: `${((currentIndex + 1) / keys.length) * 100}%`,

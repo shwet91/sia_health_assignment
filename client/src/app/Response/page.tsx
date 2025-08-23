@@ -5,7 +5,7 @@
 import { useAppSelector } from "@/store/store";
 import React from "react";
 
-function Page(answer: []) {
+function Page() {
   const userData = useAppSelector((state) => state.user.userData);
   const userResponse = useAppSelector((state) => state.user.userResponse);
 

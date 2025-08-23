@@ -23,3 +23,12 @@ interface AnswerType {
   type: any; // Changed "singleSelection" | "multiSelection" to any
   answer: any[]; // Changed string[] to any[]
 }
+
+interface UserDetails {
+  name: string;
+  email: string;
+  phoneNo?: string;
+  age?: string;
+  gender?: string;
+}
+

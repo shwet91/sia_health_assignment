@@ -10,6 +10,12 @@ import { useAppDispatch } from "@/store/store";
 import { setUserResponse } from "@/store/slices/DataClice";
 import { useRouter } from "next/navigation";
 import PersonalDetails from "./PersonalDetail";
+import { Loader2 } from "lucide-react";
+import { h1 } from "framer-motion/client";
+
+export function InlineLoader() {
+  return <Loader2 className="h-5 w-5 animate-spin" aria-label="Loading" />;
+}
 
 // Changed to any to avoid type checking issues
 type QuestionKey = any;
@@ -41,7 +47,7 @@ function Logo() {
 }
 
 function MainPannel() {
-  // Changed all useState types to any
+  const [isLoading, setIsLoading] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<any>("details");
   // I am changing currentQuestion from q1 to details
   const [finalAnswer, setFinalAnswer] = useState<any>([]);
@@ -50,11 +56,11 @@ function MainPannel() {
   const [groupCurrentSelectedAnswer, setGroupCurrentSelectedAnswer] =
     useState<any>([]);
   const [choice, setChoice] = useState<any>("");
-  const [userDetails , setUserDetails] = useState(null)
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const nextHandler = () => {
+  const nextHandler = async () => {
     if (nextQuestion && nextQuestion !== "choice") {
       setCurrentQuestion(nextQuestion);
     } else if (nextQuestion === "choice") {
@@ -68,6 +74,28 @@ function MainPannel() {
     }
 
     if (nextQuestion === "end") {
+      if (isLoading === true) return;
+
+      setIsLoading(true);
+      console.log("started fetching");
+      const resposne = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: userDetails?.name,
+          email: userDetails?.email,
+          phoneNo: userDetails?.phoneNo,
+          age: userDetails?.age,
+          gender: userDetails?.gender,
+          answers: finalAnswer,
+        }),
+      });
+
+      console.log(resposne);
+      setFinalAnswer([]);
+      setUserDetails(null);
+      setIsLoading(false);
+
       router.push("/Response");
     }
   };
@@ -90,9 +118,9 @@ function MainPannel() {
       setCurrentSelectedAnswer(ans);
     }
 
-    if (currentQuestion === "details"){
+    if (currentQuestion === "details") {
       setCurrentQuestion(nextQues);
-      setUserDetails(ans)
+      setUserDetails(ans);
     }
 
     if (nextQues) setNextQuestion(nextQues);
@@ -230,7 +258,7 @@ function MainPannel() {
           />
         </div>
       )}
-      
+
       {choice === "conditionA" && currentQuestion === "choice" && (
         <div className="relative z-10">
           <QuestionTab
@@ -283,9 +311,10 @@ function MainPannel() {
         onClick={nextHandler}
         className={` ${
           currentQuestion === "details" ? "hidden" : ""
-        } teal-color absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-xl transition-shadow`}
+        } flex justify-center items-center gap-3 teal-color absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-xl transition-shadow`}
       >
-        Next
+        {nextQuestion === "end" ? <h1>Submit</h1> : <h1>Next</h1>}
+        {isLoading ? <InlineLoader></InlineLoader> : null}
       </button>
     </div>
   );

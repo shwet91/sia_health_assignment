@@ -11,7 +11,6 @@ import { setUserResponse } from "@/store/slices/DataClice";
 import { useRouter } from "next/navigation";
 import PersonalDetails from "./PersonalDetail";
 import { Loader2 } from "lucide-react";
-import { h1 } from "framer-motion/client";
 
 export function InlineLoader() {
   return <Loader2 className="h-5 w-5 animate-spin" aria-label="Loading" />;
@@ -77,6 +76,7 @@ function MainPannel() {
       if (isLoading === true) return;
 
       setIsLoading(true);
+      setCurrentQuestion("q10")
       console.log("started fetching");
       const resposne = await fetch("/api/submit", {
         method: "POST",

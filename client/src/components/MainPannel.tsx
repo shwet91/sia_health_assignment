@@ -6,8 +6,6 @@ import questions from "@/lib/questions";
 import GroupQuestionTab from "./GroupQuestionTab";
 import { conditions } from "@/lib/questions";
 import Image from "next/image";
-import { useAppDispatch } from "@/store/store";
-import { setUserResponse } from "@/store/slices/DataClice";
 import { useRouter } from "next/navigation";
 import PersonalDetails from "./PersonalDetail";
 import { Loader2 } from "lucide-react";
@@ -16,8 +14,6 @@ export function InlineLoader() {
   return <Loader2 className="h-5 w-5 animate-spin" aria-label="Loading" />;
 }
 
-// Changed to any to avoid type checking issues
-type QuestionKey = any;
 
 function ImageBox() {
   return (
@@ -56,7 +52,6 @@ function MainPannel() {
     useState<any>([]);
   const [choice, setChoice] = useState<any>("");
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const nextHandler = async () => {
@@ -180,7 +175,6 @@ function MainPannel() {
       setChoice("conditionC");
     }
 
-    dispatch(setUserResponse(finalAnswer));
   }, [finalAnswer]);
 
   return (
@@ -215,12 +209,12 @@ function MainPannel() {
         </div>
       </div>
 
-      <div className="w-full sm:w-[90%] lg:w-[60%] xl:w-[50%] ml-4 sm:ml-6 lg:ml-8 px-2 sm:px-0 relative z-10">
-        <h1 className="dark-blue-color text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight">
+      <div className="w-full sm:w-[90%] lg:w-[60%] xl:w-[50%] ml-4 sm:ml-6 lg:ml-8 px-2 sm:px-0 relative z-10 ">
+        <h1 className="dark-blue-color text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight ">
           Take a Health Quiz
         </h1>
-        <p className="dark-blue-color text-xs sm:text-sm ml-1 sm:ml-3 mt-3 sm:mt-5 max-w-md">
-          Answer a few questions to check your mental health status
+        <p className="dark-blue-color text-xs sm:text-sm 1ml-1 sm:ml-0 mt-3 sm:mt-5 max-w-md">
+          Answer a few questions to check your health status. We keep All your data in secured form.
         </p>
       </div>
 
@@ -308,7 +302,7 @@ function MainPannel() {
       <button
         onClick={nextHandler}
         className={` ${currentQuestion === "details" ? "hidden" : ""}
-          flex justify-center items-center gap-3 teal-color absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-2xl transition-shadow`}
+          flex justify-center items-center gap-3 teal-color-1 absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-2xl transition-shadow`}
       >
         {nextQuestion === "end" ? <h1>Submit</h1> : <h1>Next</h1>}
         {isLoading ? <InlineLoader></InlineLoader> : null}

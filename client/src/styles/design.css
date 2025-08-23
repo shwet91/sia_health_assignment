@@ -1,25 +1,67 @@
-
 .blue-color {
-    background: #EAF6FB;
+  background: #eaf6fb;
 }
 
 .dark-blue-color {
-    color: #1D3557;
+  color: #1d3557;
 }
 
-.teal-color {
+.teal-color-1 {
     border: 3px solid #4CB7A5;
+    background: #4CB7A5;
+    transition: all 0.3s ease;
 }
 
-.teal-background {
-    background: #4CB7A5;
+/* .teal-color-1 {
+  border: 3px solid #4cb7a5;
+  background: #4cb7a5;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px; 
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+} */
+
+.teal-color-1:hover {
+  background: #3ca894;
+  transform: scale(1.05); /* slight zoom */
+  box-shadow: 0 4px 10px rgba(76, 183, 165, 0.4);
 }
+
+.teal-color-1:active {
+  transform: scale(0.95); /* press effect */
+}
+
+/* .teal-background {
+    background: #4CB7A5;
+} */
 
 .blue-light {
-    background: #4DB6AC;
+  background: #4db6ac;
+}
+
+/* .selected {
+    background-color: aqua;
+    border: 3px solid #4CB7A5;
+} */
+
+.teal-color {
+  border: 2px solid #4cb7a5;
+  background: white;
 }
 
 .selected {
-    background-color: aqua;
-    border: 3px solid #4CB7A5;
+  border: 2px solid #4cb7a5;
+  background: white;
+  position: relative;
+}
+
+.selected::after {
+  content: "";
+  width: 60%;
+  height: 60%;
+  background-color: #4cb7a5; /* inner teal dot */
+  border-radius: 50%;
+  display: block;
 }

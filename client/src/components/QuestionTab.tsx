@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../styles/design.css";
+import { Lato } from "next/font/google";
+
+
+const latoFont = Lato({
+  subsets: ["latin"],
+  weight: "900",
+})
+
 
 function QuestionTab({
   question = "this is your question",
@@ -104,7 +112,7 @@ function QuestionTab({
 
   return (
     <div className="w-full sm:w-[80%] lg:w-[50%] h-auto min-h-[200px] ml-4 sm:ml-6 lg:ml-8 mt-3 sm:mt-5 px-2 sm:px-0">
-      <h1 className="dark-blue-color text-lg sm:text-xl lg:text-2xl leading-tight">
+      <h1 className={` ${latoFont.className} dark-blue-color text-lg sm:text-xl lg:text-2xl leading-tight`}>
         {question}
       </h1>
       <div className="h-auto min-h-[150px] mt-2 sm:mt-4">
@@ -115,11 +123,22 @@ function QuestionTab({
                 key={i}
                 className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 rounded-lg sm:rounded-none transition-colors duration-200"
               >
-                <div
+                {/* <div
                   className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 ${
                     selectedOptions.includes(i) ? "selected" : "teal-color"
                   }`}
+                ></div> */}
+
+                <div
+                  className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 
+                               flex items-center justify-center transition-colors duration-300
+                                ${
+                                  selectedOptions.includes(i)
+                                    ? "selected"
+                                    : "teal-color"
+                                }`}
                 ></div>
+
                 <h1 className="dark-blue-color text-sm sm:text-base lg:text-lg select-none leading-relaxed break-words">
                   {e}
                 </h1>

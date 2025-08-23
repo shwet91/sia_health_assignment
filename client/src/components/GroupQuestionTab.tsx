@@ -18,8 +18,6 @@ function GroupQuestionTab({
   const [selectedOptions, setSelectedOptins] = useState<number[]>([]);
   const [answer, setAnswer] = useState<any>({});
 
-
-
   useEffect(() => {
     if (!answer) return;
 
@@ -84,11 +82,18 @@ function GroupQuestionTab({
                 key={i}
                 className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 rounded-lg sm:rounded-none transition-colors duration-200"
               >
-                <div
+                {/* <div
                   className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 ${
                     selectedOptions.includes(i) ? "selected" : "teal-color"
                   }`}
+                ></div> */}
+
+                <div
+                  className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 
+                    flex items-center justify-center transition-colors duration-300
+                    ${selectedOptions.includes(i) ? "selected" : "teal-color"}`}
                 ></div>
+
                 <h1 className="dark-blue-color text-xs sm:text-sm select-none leading-relaxed break-words">
                   {e}
                 </h1>

@@ -1,4 +1,10 @@
 import Image from "next/image";
+import { Lato } from "next/font/google";
+
+const latoFont = Lato({
+  subsets: ["latin"],
+  weight: "400",
+})
 
 export default function Home() {
   return (

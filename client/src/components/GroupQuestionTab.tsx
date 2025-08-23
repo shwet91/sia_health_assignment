@@ -87,7 +87,7 @@ function GroupQuestionTab({
               <div
                 onClick={() => btnHandler(i, e)}
                 key={i}
-                className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 hover:bg-gray-50 rounded-lg sm:rounded-none transition-colors duration-200"
+                className="mt-2 sm:mt-3 items-center flex cursor-pointer p-2 sm:p-1 rounded-lg sm:rounded-none transition-colors duration-200"
               >
                 <div
                   className={`w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 border-2 rounded-full flex-shrink-0 ${

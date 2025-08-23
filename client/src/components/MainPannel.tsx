@@ -76,7 +76,7 @@ function MainPannel() {
       if (isLoading === true) return;
 
       setIsLoading(true);
-      setCurrentQuestion("q10")
+      setCurrentQuestion("q10");
       console.log("started fetching");
       const resposne = await fetch("/api/submit", {
         method: "POST",
@@ -126,14 +126,6 @@ function MainPannel() {
     if (nextQues) setNextQuestion(nextQues);
   };
 
-  const btnHandler = () => {
-    console.log(userDetails);
-    console.log(finalAnswer);
-    // console.log(choice);
-    // console.log(currentQuestion);
-    console.log(nextQuestion);
-    // console.log(questions[currentQuestion]);
-  };
 
   function arraysEqualIgnoringOrder(arr1: any, arr2: any) {
     if (arr1.length !== arr2.length) return false;
@@ -186,7 +178,7 @@ function MainPannel() {
   }, [finalAnswer]);
 
   return (
-    <div className="w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col min-h-[920px]  md:min-h-[500px] sm:min-h-[900px] lg:min-h-[800px]">
+    <div className={` ${((questions as any)[currentQuestion]?.type === "GroupSelection") ? "min-h-[1650px]" : "min-h-[920px]"} w-full m-2 sm:m-4 rounded-xl sm:rounded-2xl lg:rounded-4xl p-2 sm:p-4 bg-white relative flex flex-col  md:min-h-[500px] sm:min-h-[900px] lg:min-h-[800px]`}>
       {/* CHANGED: Improved header layout for logo and navigation */}
       <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start p-4 sm:p-6 lg:p-8 relative z-10">
         {/* CHANGED: Enhanced logo section with better alignment and responsive text */}
@@ -218,12 +210,6 @@ function MainPannel() {
         <p className="dark-blue-color text-xs sm:text-sm ml-1 sm:ml-3 mt-3 sm:mt-5 max-w-md">
           Answer a few questions to check your mental health status
         </p>
-        <button
-          onClick={btnHandler}
-          className="text-black text-lg sm:text-xl lg:text-2xl mt-2"
-        >
-          Click me
-        </button>
       </div>
 
       {/* CHANGED: Adjusted questions layout to work with image positioning */}
@@ -309,9 +295,8 @@ function MainPannel() {
       {/* CHANGED: Adjusted button positioning to avoid overlap with image and made it more responsive */}
       <button
         onClick={nextHandler}
-        className={` ${
-          currentQuestion === "details" ? "hidden" : ""
-        } flex justify-center items-center gap-3 teal-color absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-xl transition-shadow`}
+        className={` ${currentQuestion === "details" ? "hidden" : ""}
+          flex justify-center items-center gap-3 teal-color absolute bottom-3 sm:bottom-6 left-4 sm:left-8 md:left-auto md:right-4 lg:right-8 xl:right-[420px] w-[120px] sm:w-[160px] lg:w-[200px] h-[40px] sm:h-[45px] lg:h-[50px] rounded-xl sm:rounded-2xl teal-background text-lg sm:text-xl lg:text-2xl z-20 shadow-lg hover:shadow-2xl transition-shadow`}
       >
         {nextQuestion === "end" ? <h1>Submit</h1> : <h1>Next</h1>}
         {isLoading ? <InlineLoader></InlineLoader> : null}

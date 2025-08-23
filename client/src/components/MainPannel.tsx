@@ -14,7 +14,6 @@ export function InlineLoader() {
   return <Loader2 className="h-5 w-5 animate-spin" aria-label="Loading" />;
 }
 
-
 function ImageBox() {
   return (
     <div className="w-48 h-48 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 overflow-hidden rounded-xl sm:rounded-2xl relative">
@@ -86,9 +85,13 @@ function MainPannel() {
           }),
         });
 
+        const data = await response.json();
         if (!response.ok) {
-          throw new Error(`Failed with status ${response.status}`);
+          throw new Error(
+            data.message || `Failed with status ${response.status}`
+          );
         }
+
 
         setFinalAnswer([]);
         setUserDetails(null);
@@ -174,7 +177,6 @@ function MainPannel() {
     } else if (isConditionETrue) {
       setChoice("conditionC");
     }
-
   }, [finalAnswer]);
 
   return (
@@ -214,7 +216,8 @@ function MainPannel() {
           Take a Health Quiz
         </h1>
         <p className="dark-blue-color text-xs sm:text-sm 1ml-1 sm:ml-0 mt-3 sm:mt-5 max-w-md">
-          Answer a few questions to check your health status. We keep All your data in secured form.
+          Answer a few questions to check your health status. We keep All your
+          data in secured form.
         </p>
       </div>
 

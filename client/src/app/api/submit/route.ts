@@ -32,6 +32,8 @@ export async function POST(req: Request) {
       );
     }
 
+    console.log("sata received :" , body)
+
     const cleanName = String(name).trim();
     const cleanEmail = String(email).trim().toLowerCase();
 
@@ -48,6 +50,8 @@ export async function POST(req: Request) {
       createdAt: new Date(),
     };
     FAKE_DB.push(record);
+
+    console.log("this is saved in db :" , record)
 
     return NextResponse.json(
       { success: true, message: "Data securely saved!" },

@@ -18,7 +18,13 @@ import {
   Award,
 } from "lucide-react";
 
-const ReportPage = () => {
+const ReportPage = ({
+  showMessage,
+  displayMessage,
+}: {
+  showMessage: boolean;
+  displayMessage: string;
+}) => {
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -78,6 +84,14 @@ const ReportPage = () => {
           >
             Assessment Complete!
           </h1>
+          <button
+            onClick={() => {
+              console.log("message :", displayMessage);
+              console.log("boolean :", showMessage);
+            }}
+          >
+            Click me
+          </button>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Thank you for trusting us with your health information. Your
             responses have been securely collected and are now being reviewed by

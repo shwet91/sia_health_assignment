@@ -9,6 +9,16 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import PersonalDetails from "./PersonalDetail";
 import { Loader2 } from "lucide-react";
+import { reportConditions } from "@/lib/questions";
+
+type DataTransferFunction = (
+  ReportMessage: string,
+  activateReport: boolean
+) => void;
+
+type MainPannelProps = {
+  dataTransferFunction: DataTransferFunction;
+};
 
 export function InlineLoader() {
   return <Loader2 className="h-5 w-5 animate-spin" aria-label="Loading" />;
@@ -40,7 +50,7 @@ function Logo() {
   );
 }
 
-function MainPannel() {
+function MainPannel({ dataTransferFunction }: MainPannelProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<any>("details");
   // I am changing currentQuestion from q1 to details
@@ -52,6 +62,77 @@ function MainPannel() {
   const [choice, setChoice] = useState<any>("");
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const newArrOfAns = finalAnswer.flatMap((e: any) => e.answer);
+    let isReportDesired = true;
+    const condition = createReport();
+
+    if (
+      newArrOfAns.includes("Maybe later") ||
+      newArrOfAns.includes("No thanks")
+    ) {
+      isReportDesired = false;
+       dataTransferFunction(condition, isReportDesired);
+    } else if (
+      newArrOfAns.includes("Yes, WhatsApp me") ||
+      newArrOfAns.includes("Yes, book a free call")
+    ) {
+      dataTransferFunction(condition, isReportDesired);
+    }
+
+    // setFinalAnswer([]);
+    // setUserDetails(null);
+    // setIsLoading(false);
+  }, [finalAnswer]);
+
+  const createReport = () => {
+    let condition = "empty";
+    const arrOfAns = finalAnswer.flatMap((e: any) => e.answer);
+
+    const noOfRedFlags = arrOfAns.filter((ans: string) =>
+      reportConditions.redFlag.includes(ans)
+    ).length;
+
+    const noOfMildSymptioms = arrOfAns.filter((ans: string) =>
+      reportConditions.mildSymptom.includes(ans)
+    ).length;
+
+    const harmonalIssues = arrOfAns.filter((ans: string) =>
+      reportConditions.PregnancyOrHarmonalHistory.includes(ans)
+    ).length;
+
+    if (
+      noOfRedFlags > 3 &&
+      !arrOfAns.includes("I have been diagnosed before and need support") &&
+      !arrOfAns.includes("Just curious") &&
+      !arrOfAns.includes("I am planning for pregnancy") &&
+      !arrOfAns.includes("I am currently pregnant and want to support my body")
+    ) {
+      condition = "this is condition A";
+    } else if (
+      arrOfAns.includes("I have been diagnosed before and need support")
+    ) {
+      condition = "this is condition B";
+    } else if (
+      (arrOfAns.includes("I am planning for pregnancy") ||
+        arrOfAns.includes(
+          "I am currently pregnant and want to support my body"
+        )) &&
+      harmonalIssues > 0
+    ) {
+      condition = "this is condition C";
+    } else if (arrOfAns.includes("Just curious") && noOfMildSymptioms > 0) {
+      condition = "this is condition D";
+    }
+
+    return condition;
+  };
+
+  const btnDebug = () => {
+    console.log(finalAnswer);
+    createReport();
+  };
 
   const nextHandler = async () => {
     if (nextQuestion && nextQuestion !== "choice") {
@@ -92,11 +173,7 @@ function MainPannel() {
           );
         }
 
-
-        setFinalAnswer([]);
-        setUserDetails(null);
-        setIsLoading(false);
-        router.push("/Response");
+        // router.push("/Response");
       } catch (error) {
         console.error(error);
       } finally {
@@ -195,6 +272,7 @@ function MainPannel() {
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
             HealthCare
           </h1>
+          <button onClick={btnDebug}>Debug</button>
         </div>
         <div>
           <ul className="flex flex-wrap justify-center sm:justify-end">

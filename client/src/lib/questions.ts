@@ -201,3 +201,44 @@ export const conditions = {
   conditionD: ["I am planning for pregnancy"],
   conditionE: ["I am currently pregnant and want to support my body"],
 };
+
+export const reportConditions = {
+  redFlag: [
+    "Irregular cycles (<21 or >35 days)",
+    "Very painful periods",
+    "Acne (jawline or chin)",
+    "Hair thinning or hair fall",
+    "Constant fatigue / low energy",
+    "Brain fog",
+    "Sudden or stubborn weight gain",
+    "Difficulty losing weight",
+    "Trouble falling asleep",
+    "Waking up tired",
+  ],
+
+  mildSymptom: [
+    "Heavy bleeding or clotting",
+    "Missed periods",
+    "Decreased frequency of menses",
+    "Mood swings or irritability",
+    "Mood swings or irritability",
+    "Sugar cravings / feel hangry",
+    "Frequent bowel movements",
+    "Hot flashes or night sweats",
+    "Joint pain or body aches",
+    "Low libido",
+    "Frequent urination",
+  ],
+
+  PregnancyOrHarmonalHistory: [
+    // "I am planning for pregnancy",
+    // "I am currently pregnant and want to support my body",
+    "PCOS / PCOD",
+    "Thyroid disorders (Hypothyroid, Hashimoto's)",
+    "Menstrual irregularities",
+    "Weight fluctuations",
+    "Endometriosis",
+    "Menopause (post/peri)",
+    "Insulin resistance",
+  ],
+};

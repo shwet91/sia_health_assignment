@@ -231,8 +231,6 @@ export const reportConditions = {
   ],
 
   PregnancyOrHarmonalHistory: [
-    // "I am planning for pregnancy",
-    // "I am currently pregnant and want to support my body",
     "PCOS / PCOD",
     "Thyroid disorders (Hypothyroid, Hashimoto's)",
     "Menstrual irregularities",

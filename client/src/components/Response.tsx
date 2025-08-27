@@ -1,13 +1,3 @@
-// import React from "react";
-
-// function Response() {
-//   return <div className="md:w-[80%] md:h-[600px] rounded-xl bg-white border-2 border-black"></div>;
-// }
-
-// export default Response;
-
-const messssss = "this is version 2";
-
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import {
@@ -108,11 +98,6 @@ const ReportPage = ({
               </p>
             )}
           </div>
-          {/* <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed border-2 border-amber-400">
-            Thank you for trusting us with your health information. Your
-            responses have been securely collected and are now being reviewed by
-            our medical experts.
-          </p> */}
         </motion.div>
 
         {/* Success Cards */}

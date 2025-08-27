@@ -6,7 +6,6 @@ import questions from "@/lib/questions";
 import GroupQuestionTab from "./GroupQuestionTab";
 import { conditions } from "@/lib/questions";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import PersonalDetails from "./PersonalDetail";
 import { Loader2 } from "lucide-react";
 import { reportConditions } from "@/lib/questions";
@@ -61,7 +60,6 @@ function MainPannel({ dataTransferFunction }: MainPannelProps) {
     useState<any>([]);
   const [choice, setChoice] = useState<any>("");
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const newArrOfAns = finalAnswer.flatMap((e: any) => e.answer);
@@ -81,9 +79,6 @@ function MainPannel({ dataTransferFunction }: MainPannelProps) {
       dataTransferFunction(condition, isReportDesired);
     }
 
-    // setFinalAnswer([]);
-    // setUserDetails(null);
-    // setIsLoading(false);
   }, [finalAnswer]);
 
   const createReport = () => {
@@ -129,11 +124,6 @@ function MainPannel({ dataTransferFunction }: MainPannelProps) {
     return condition;
   };
 
-  const btnDebug = () => {
-    console.log(finalAnswer);
-    createReport();
-  };
-
   const nextHandler = async () => {
     if (nextQuestion && nextQuestion !== "choice") {
       setCurrentQuestion(nextQuestion);
@@ -172,8 +162,6 @@ function MainPannel({ dataTransferFunction }: MainPannelProps) {
             data.message || `Failed with status ${response.status}`
           );
         }
-
-        // router.push("/Response");
       } catch (error) {
         console.error(error);
       } finally {
@@ -272,7 +260,6 @@ function MainPannel({ dataTransferFunction }: MainPannelProps) {
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
             HealthCare
           </h1>
-          <button onClick={btnDebug}>Debug</button>
         </div>
         <div>
           <ul className="flex flex-wrap justify-center sm:justify-end">

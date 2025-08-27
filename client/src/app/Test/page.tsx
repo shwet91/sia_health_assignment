@@ -6,7 +6,6 @@ import Navbar from "@/components/Navbar";
 // import PersonalDetails from "@/components/PersonalDetails";
 import "../../styles/design.css";
 import MainPannel from "@/components/MainPannel";
-// import Response from "../../components/Response"
 import ReportPage from "@/components/Response";
 
 function Page() {

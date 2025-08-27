@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 // import questions from "@/lib/questions";
-import Navbar from "@/components/Navbar";
 // import PersonalDetails from "@/components/PersonalDetails";
 import "../../styles/design.css";
 import MainPannel from "@/components/MainPannel";

@@ -71,14 +71,13 @@ function MainPannel({ dataTransferFunction }: MainPannelProps) {
       newArrOfAns.includes("No thanks")
     ) {
       isReportDesired = false;
-       dataTransferFunction(condition, isReportDesired);
+      dataTransferFunction(condition, isReportDesired);
     } else if (
       newArrOfAns.includes("Yes, WhatsApp me") ||
       newArrOfAns.includes("Yes, book a free call")
     ) {
       dataTransferFunction(condition, isReportDesired);
     }
-
   }, [finalAnswer]);
 
   const createReport = () => {
@@ -104,11 +103,13 @@ function MainPannel({ dataTransferFunction }: MainPannelProps) {
       !arrOfAns.includes("I am planning for pregnancy") &&
       !arrOfAns.includes("I am currently pregnant and want to support my body")
     ) {
-      condition = "this is condition A";
+      condition =
+        "You may be dealing with a hormonal imbalance. Let's help you decode what's going on";
     } else if (
       arrOfAns.includes("I have been diagnosed before and need support")
     ) {
-      condition = "this is condition B";
+      condition =
+        "We help women with [condition] manage symptoms and feel better. Want a plan?";
     } else if (
       (arrOfAns.includes("I am planning for pregnancy") ||
         arrOfAns.includes(
@@ -116,9 +117,11 @@ function MainPannel({ dataTransferFunction }: MainPannelProps) {
         )) &&
       harmonalIssues > 0
     ) {
-      condition = "this is condition C";
+      condition =
+        "We can support you through pregnancy safely and holistically.";
     } else if (arrOfAns.includes("Just curious") && noOfMildSymptioms > 0) {
-      condition = "this is condition D";
+      condition =
+        "No urgent signs now, but your body is always signaling. Work with us to improve your health.";
     }
 
     return condition;

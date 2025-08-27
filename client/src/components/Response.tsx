@@ -6,6 +6,8 @@
 
 // export default Response;
 
+const messssss = "this is version 2";
+
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import {
@@ -92,11 +94,25 @@ const ReportPage = ({
           >
             Click me
           </button>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <div
+            className="text-xl  max-w-2xl mx-auto leading-relaxed border-2 p-6 rounded-xl"
+            style={{ background: "#4CB7A5" }}
+          >
+            {showMessage && displayMessage ? (
+              <p>{displayMessage}</p>
+            ) : (
+              <p>
+                Thank you for trusting us with your health information. Your
+                responses have been securely collected and are now being
+                reviewed by our medical experts.
+              </p>
+            )}
+          </div>
+          {/* <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed border-2 border-amber-400">
             Thank you for trusting us with your health information. Your
             responses have been securely collected and are now being reviewed by
             our medical experts.
-          </p>
+          </p> */}
         </motion.div>
 
         {/* Success Cards */}
